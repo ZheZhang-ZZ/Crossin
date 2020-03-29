@@ -54,7 +54,10 @@ firstline.extend([firstline_sum,firstline_mean])
 firstline=[str(x) for x in firstline]
 firstline=" ".join(firstline)
 header.extend(['总分','平均分'])
+header.insert(0,'科目')
+header.insert(0,'名次')
 header=" ".join(header)
+
 res = sorted(res, key=lambda x: -x[-1])
 
 f = open("result.txt",'w')
