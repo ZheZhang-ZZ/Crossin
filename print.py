@@ -1,0 +1,5 @@
+print("littlezzZ")
+print('1+2*3-4/2=5')
+print("hello ", end='')
+print("world")
+print("Hello\nWorld")
