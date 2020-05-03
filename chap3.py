@@ -18,5 +18,9 @@ s = '''
 'hello world'
 \\"hello,world"
 '''
+<<<<<<< HEAD
    
+=======
+
+>>>>>>> dev
 print(s)
