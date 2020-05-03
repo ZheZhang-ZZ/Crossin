@@ -71,4 +71,8 @@ for person in res:
   f.write(str(i)+" "+person+"\n")
   i+=1
 
+<<<<<<< HEAD
 f.close()
+=======
+f.close()
+>>>>>>> all file status
