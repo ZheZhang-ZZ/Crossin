@@ -191,3 +191,92 @@ git clone git@github.com:<用户名>/<仓库名>.git
 
 所以Git全是在借助指针实现这些小任务，速度非常快，实在:cow::beer:
 
+### 分支与主线涉及的命令
+
+创建一个叫做`dev`的分支，并切换到该分支:
+
+```shell
+git checkout -b dev
+git switch -c dev #与上一行命令实现一样的效果，而且更加“顾名思义”
+```
+
+相当于:
+
+```shell
+git branch dev #创建分支
+git checkout dev #切换到该分支
+git switch dev #也是切换到某分支
+```
+
+查看当前分支:
+
+```shell
+git branch
+```
+
+合并分支:
+
+```shell
+git merge dev #相当于合并dev分支到当前分支
+```
+
+删除分支:
+
+```
+git branch -d dev
+```
+
+常规情况下，git使用fast-forward的方式合并分支，但是这会丢失支线的信息，但是速度较快。如果不想用fast-forward的方式合并分支，可以采用下面的方式:
+
+```shell
+git merge -no-ff -m "merge with no-ff" dev
+```
+
+此时的合并方式如下图所示：
+
+![git-no-ff-mode](https://www.liaoxuefeng.com/files/attachments/919023225142304/0)
+
+可以看出与前面fast-forward的合并方式的差异。
+
+正常开发时，master通常不动，各个开发人员都向dev提交，等开发完毕再讲master与dev合并：
+
+![git-br-policy](https://www.liaoxuefeng.com/files/attachments/919023260793600/0)
+
+
+
+### 查看远程仓库信息
+
+```shell
+git remote # 显示远程仓库名称，默认是origin
+git remote -v #显示更详细的信息
+```
+
+### 往远程仓库推送子分支
+
+```shell
+git clone <远程仓库地址> #克隆一份
+git checkout -b dev origin/dev #创建远程origin的dev分支到本地
+git push origin dev
+```
+
+### 推送冲突
+
+上面代码块第三行的推送如果与他人的推送冲突，可以先用`git pull`把远程仓库给拉下来，然后手动解决冲突之后提交。如果`git pull`也失败，则可能是没有指定本地`dev`与远程`origin/dev`的链接，可以利用下面的命令：
+
+```shell
+git branch --set-upstream-to=origin/dev dev
+```
+
+再重新`git pull`，解决掉冲突合并即可。
+
+### rebase
+
+将错综复杂的提交变成一条直线，命令为：
+
+```shell
+git rebase
+git log --graph --pretty=oneline --abbrev-commit #查看log
+```
+
+
+
