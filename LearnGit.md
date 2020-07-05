@@ -278,5 +278,51 @@ git rebase
 git log --graph --pretty=oneline --abbrev-commit #查看log
 ```
 
+### 打标签
 
+打标签感觉是给想要保存的分支在某一时间点一个保存，并用标签进行命名
+
+```shell
+git checkout master # 切换到需要打标签的分支
+git tag v1.0 # 打标签
+git tag # 查看所有标签
+git show <标签名> #查看标签信息
+git tag -a <标签名> -m 'infomation' # 利用-a 与 -m参数来进行标签名与信息的添加
+```
+
+标签的一些操作
+
+```shell
+git tag -d <标签名> # 删除标签
+git push origin <标签名> # 将指定标签推送到远程仓库
+git push origin --tags # 一次性推送所有标签到远程
+
+# 如果要删除一个已经推送到远程的标签，需要以下两步
+git tag -d <标签名> # 删除本地标签
+git push origin :refs/tags/<标签名> # 删除远程标签
+```
+
+### 忽略文件
+
+如果不想让git追踪一些文件（比如隐私文件、数据、编译后文件等等）可以在`.gitignore`中添加这些文件的名称，github已经提供了一些`.gitignore`文件的模板，可以在https://github.com/github/gitignore查询。写完该文件后需要将其提交，如果不想让该文件忽略某一个文件，可以强制提交`git add -f <文件名> `
+
+![ignore](https://cdn.py2china.cn/upload-by-code/lesson/8d78c9b4gy1fj7j6p62mdj20bm09v0te.jpg)
+
+### 配置别名
+
+配置一个`last`命令，让其显示上一条提交：
+
+```shell
+ git config --global alias.last 'log -1' # --global是全局参数，即该命令对这台电脑里所有Git仓库都适用
+```
+
+还有更丧心病狂的:open_mouth:
+
+```shell
+git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+```
+
+### 配置文件
+
+每个仓库的配置文件都放在了`.git/config`文件中，里面有`[alias]`的项，是我们定义的别名，所以可通过直接修改它们来进行别名的修改。而整个用户的所有配置文件是放在用户主目录下的`.gitconfig`中的（也就是`config`命令加了`--global`参数时修改的文件），也可以修改这个文件，从而对这台电脑所有git仓库的配置进行修改。
 
